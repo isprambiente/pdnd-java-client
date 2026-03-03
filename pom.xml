@@ -9,8 +9,8 @@
     <version>1.0.0</version>
 
     <properties>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -55,6 +55,17 @@
 
     <build>
         <plugins>
+            
+            <!-- Compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>${java.version}</release>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -114,4 +125,29 @@
 			
         </plugins>
     </build>
+    
+    <!-- PROFILI per scegliere automaticamente il JDK corretto -->
+    <profiles>
+
+        <profile>
+            <id>jdk21</id>
+            <activation>
+                <jdk>[21,22)</jdk>
+            </activation>
+            <properties>
+                <java.version>21</java.version>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>jdk25</id>
+            <activation>
+                <jdk>[25,26)</jdk>
+            </activation>
+            <properties>
+                <java.version>25</java.version>
+            </properties>
+        </profile>
+
+    </profiles>
 </project>
