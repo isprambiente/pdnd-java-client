@@ -1,4 +1,8 @@
 # pdnd-java-client
+![Java Security Audit](https://github.com/isprambiente/pdnd-java-client/actions/workflows/security-audit.yml/badge.svg)
+![Java 21](https://img.shields.io/badge/Java-21-blue)
+![Java 25](https://img.shields.io/badge/Java-25-orange)
+![License](https://img.shields.io/github/license/isprambiente/pdnd-java-client)
 
 Client Java 25 per autenticazione e chiamata API PDND (Piattaforma Digitale Nazionale Dati).
 
@@ -164,3 +168,7 @@ public class App {
 
 * **Java 25 Features**: Il codice utilizza le più recenti funzionalità Java come `Records` per i DTO, `Switch Expressions` e il nuovo `java.net.http.HttpClient`.
 * **Crittografia**: Utilizza BouncyCastle per la gestione robusta delle chiavi private (RSA) e `jjwt` per la creazione dei Client Assertion.
+
+## Contribuire
+
+Per domande o suggerimenti, apri una issue!
