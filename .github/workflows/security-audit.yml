@@ -1,9 +1,9 @@
-name: Nightly Java Tests
+name: Java Security Audit
 
 on:
   schedule:
-    - cron: "0 4 * * *"   # Esegui ogni notte alle 4:00 (UTC)
-  workflow_dispatch:       # Permette l’avvio manuale
+    - cron: "0 4 * * *"   # ogni notte alle 4:00 UTC
+  workflow_dispatch:       # opzionale: permette di avviare il workflow anche a mano
 
 jobs:
   test:
@@ -24,10 +24,12 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
 
-      - name: Build & Test (Maven)
-        if: exists('pom.xml')
+      # Maven
+      - name: Build & Test with Maven
+        if: ${{ hashFiles('pom.xml') != '' }}
         run: mvn -B clean test
 
-      - name: Build & Test (Gradle)
-        if: exists('build.gradle') || exists('build.gradle.kts')
+      # Gradle (Groovy o Kotlin DSL)
+      - name: Build & Test with Gradle
+        if: ${{ hashFiles('build.gradle') != '' || hashFiles('build.gradle.kts') != '' }}
         run: ./gradlew clean test
