@@ -1,0 +1,33 @@
+name: Nightly Java Tests
+
+on:
+  schedule:
+    - cron: "0 4 * * *"   # Esegui ogni notte alle 4:00 (UTC)
+  workflow_dispatch:       # Permette l’avvio manuale
+
+jobs:
+  test:
+    name: Run tests on Java ${{ matrix.java }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java: [ '21', '25' ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+
+      - name: Build & Test (Maven)
+        if: exists('pom.xml')
+        run: mvn -B clean test
+
+      - name: Build & Test (Gradle)
+        if: exists('build.gradle') || exists('build.gradle.kts')
+        run: ./gradlew clean test
