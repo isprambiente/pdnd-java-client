@@ -50,6 +50,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
+          
+      - name: Configure Maven toolchains
+        run: |
+          mkdir -p ~/.m2
+          cp .github/toolchains.xml ~/.m2/toolchains.xml
 
       - name: Run tests (Maven)
         run: mvn -B test
