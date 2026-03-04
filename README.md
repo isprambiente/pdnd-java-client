@@ -1,8 +1,10 @@
 # pdnd-java-client
 ![Java Security Audit](https://github.com/isprambiente/pdnd-java-client/actions/workflows/security-audit.yml/badge.svg)
+![Maven](https://img.shields.io/maven-central/v/io.github.isprambiente/pdnd-client.svg?label=Maven%20Central)
 ![Java 21](https://img.shields.io/badge/Java-21-blue)
 ![Java 25](https://img.shields.io/badge/Java-25-orange)
 ![License](https://img.shields.io/github/license/isprambiente/pdnd-java-client)
+
 
 Client Java 25 per autenticazione e chiamata API PDND (Piattaforma Digitale Nazionale Dati).
 
@@ -125,6 +127,22 @@ java -jar target/pdnd-client.jar --debug --api-url="https://api.pdnd.example.it/
 ```
 
 ## Utilizzo come Libreria Java
+
+La libreria pdnd-client è disponibile su Maven Central:
+https://central.sonatype.com/artifact/io.github.isprambiente/pdnd-client
+
+### Maven
+Aggiungi la dipendenza al tuo pom.xml:
+
+```xml
+<dependency>
+    <groupId>io.github.isprambiente</groupId>
+    <artifactId>pdnd-client</artifactId>
+    <version>1.0.1</version> <!-- verifica su Maven Central l'ultima versione -->
+</dependency>
+
+```
+
 
 Puoi includere questo progetto come dipendenza e usare la classe `PdndClient` direttamente nel tuo codice Java.
 
