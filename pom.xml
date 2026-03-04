@@ -4,14 +4,40 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>it.isprambiente</groupId>
+    <groupId>io.github.isprambiente</groupId>
     <artifactId>pdnd-client</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>Client Java per l'interazione con la Piattaforma Digitale Nazionale Dati (PDND)</description>
+    <url>https://github.com/isprambiente/pdnd-java-client</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>ISPRA</name>
+            <email>info@isprambiente.it</email>
+            <organization>ISPRA</organization>
+            <organizationUrl>https://www.isprambiente.gov.it</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/isprambiente/pdnd-java-client.git</connection>
+        <developerConnection>scm:git:ssh://github.com:isprambiente/pdnd-java-client.git</developerConnection>
+        <url>https://github.com/isprambiente/pdnd-java-client</url>
+    </scm>
 
     <properties>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <lib.finalName>${project.artifactId}-lib-${project.version}</lib.finalName>
     </properties>
 
     <dependencies>
@@ -20,7 +46,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.17.0</version>
         </dependency>
-
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -38,26 +63,21 @@
             <version>0.12.5</version>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk18on</artifactId>
             <version>1.78</version>
         </dependency>
-        <!-- JUnit 5 (JUnit Jupiter) -->
-		<dependency>
-		    <groupId>org.junit.jupiter</groupId>
-		    <artifactId>junit-jupiter</artifactId>
-		    <version>5.10.2</version>
-		    <scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
-    	<finalName>${project.artifactId}</finalName>
         <plugins>
-            
-            <!-- Compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -74,20 +94,19 @@
                 <executions>
                     <execution>
                         <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
+                        <goals><goal>shade</goal></goals>
                         <configuration>
-	                        <filters>
-							    <filter>
-							        <artifact>*:*</artifact>
-							        <excludes>
-							            <exclude>META-INF/*.SF</exclude>
-							            <exclude>META-INF/*.DSA</exclude>
-							            <exclude>META-INF/*.RSA</exclude>
-							        </excludes>
-							    </filter>
-							</filters>
+                            <outputFile>${project.build.directory}/${project.artifactId}.jar</outputFile>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>it.isprambiente.pdnd.Main</mainClass>
@@ -97,58 +116,81 @@
                     </execution>
                 </executions>
             </plugin>
-            
-	       <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-surefire-plugin</artifactId>
-	            <version>3.2.5</version>
-	            <configuration>
-	                <useModulePath>false</useModulePath>
-	            </configuration>
-	        </plugin>
-	        
-	        <plugin>
-			  <groupId>com.github.spotbugs</groupId>
-			  <artifactId>spotbugs-maven-plugin</artifactId>
-			  <version>4.7.3.0</version>
-			  <configuration>
-			    <effort>max</effort>
-			    <threshold>Low</threshold>
-			  </configuration>
-			  <dependencies>
-			    <dependency>
-			      <groupId>com.h3xstream.findsecbugs</groupId>
-			      <artifactId>findsecbugs-plugin</artifactId>
-			      <version>1.12.0</version>
-			    </dependency>
-			  </dependencies>
-			</plugin>
-			
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-    
-    <!-- PROFILI per scegliere automaticamente il JDK corretto -->
-    <profiles>
 
+    <profiles>
         <profile>
             <id>jdk21</id>
-            <activation>
-                <jdk>[21,22)</jdk>
-            </activation>
-            <properties>
-                <java.version>21</java.version>
-            </properties>
+            <activation><jdk>[21,22)</jdk></activation>
+            <properties><java.version>21</java.version></properties>
+        </profile>
+        <profile>
+            <id>jdk25</id>
+            <activation><jdk>[25,26)</jdk></activation>
+            <properties><java.version>25</java.version></properties>
         </profile>
 
         <profile>
-            <id>jdk25</id>
-            <activation>
-                <jdk>[25,26)</jdk>
-            </activation>
-            <properties>
-                <java.version>25</java.version>
-            </properties>
+            <id>release</id>
+            <build>
+                <finalName>${lib.finalName}</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.4.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals><goal>jar-no-fork</goal></goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.6.3</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals><goal>jar</goal></goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals><goal>sign</goal></goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
-
     </profiles>
 </project>
