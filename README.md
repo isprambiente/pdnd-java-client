@@ -34,7 +34,7 @@ mvn clean package
 ```
 
 
-Il file eseguibile verrà creato in: `target/pdnd-client-1.0.0.jar`
+Il file eseguibile verrà creato in: `target/pdnd-client.jar`
 
 ## Configurazione
 
@@ -81,7 +81,7 @@ Esegui il JAR generato specificando le opzioni desiderate.
 ### Sintassi
 
 ```bash
-java -jar target/pdnd-client-1.0.0.jar [OPZIONI]
+java -jar target/pdnd-client.jar [OPZIONI]
 
 ```
 
@@ -106,21 +106,21 @@ java -jar target/pdnd-client-1.0.0.jar [OPZIONI]
 **Chiamata API generica:**
 
 ```bash
-java -jar target/pdnd-client-1.0.0.jar --api-url="https://api.pdnd.example.it/resource" --config /percorso/assoluto/progetto.json
+java -jar target/pdnd-client.jar --api-url="https://api.pdnd.example.it/resource" --config /percorso/assoluto/progetto.json
 
 ```
 
 **Verifica validità token:**
 
 ```bash
-java -jar target/pdnd-client-1.0.0.jar --status-url="https://api.pdnd.example.it/status" --config /percorso/assoluto/progetto.json
+java -jar target/pdnd-client.jar --status-url="https://api.pdnd.example.it/status" --config /percorso/assoluto/progetto.json
 
 ```
 
 **Debug attivo:**
 
 ```bash
-java -jar target/pdnd-client-1.0.0.jar --debug --api-url="https://api.pdnd.example.it/resource"
+java -jar target/pdnd-client.jar --debug --api-url="https://api.pdnd.example.it/resource"
 
 ```
 
