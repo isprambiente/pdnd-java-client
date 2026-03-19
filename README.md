@@ -42,25 +42,32 @@ Il file eseguibile verrà creato in: `target/pdnd-client.jar`
 
 Il client richiede un file di configurazione JSON contenente i parametri per l'autenticazione OAuth2.
 
-Crea un file (es. `configs/config.json`) con la seguente struttura:
+Crea un file (es. `configs/sample.json`) con la seguente struttura:
 
 ```json
-{
-  "collaudo": {
-    "kid": "IL_TUO_KID",
-    "issuer": "IL_TUO_ISSUER",
-    "clientId": "IL_TUO_CLIENT_ID",
-    "purposeId": "IL_TUO_PURPOSE_ID",
-    "privKeyPath": "/percorso/assoluto/private.key"
-  },
-  "produzione": {
-    "kid": "IL_TUO_KID",
-    "issuer": "IL_TUO_ISSUER",
-    "clientId": "IL_TUO_CLIENT_ID",
-    "purposeId": "IL_TUO_PURPOSE_ID",
-    "privKeyPath": "/percorso/assoluto/private.key"
-  }
-}
+ {
+   "attestazione": {
+     "kid": "kid",
+     "issuer": "issuer",
+     "clientId": "clientId",
+     "purposeId": "purposeId",
+     "privKeyPath": "/tmp/key.pem"
+   },
+   "collaudo": {
+     "kid": "kid",
+     "issuer": "issuer",
+     "clientId": "clientId",
+     "purposeId": "purposeId",
+     "privKeyPath": "/tmp/key.priv"
+   },
+   "produzione": {
+     "kid": "kid",
+     "issuer": "issuer",
+     "clientId": "clientId",
+     "purposeId": "purposeId",
+     "privKeyPath": "/tmp/key.priv"
+   }
+ }
 
 ```
 

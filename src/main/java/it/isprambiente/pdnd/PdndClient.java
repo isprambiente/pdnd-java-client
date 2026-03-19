@@ -72,6 +72,10 @@ public class PdndClient {
             this.endpoint = "https://auth.uat.interop.pagopa.it/token.oauth2";
             this.aud = "auth.uat.interop.pagopa.it/client-assertion";
         }
+        else if ("attestazione".equalsIgnoreCase(env)) {
+            this.endpoint = "https://auth.att.interop.pagopa.it/token.oauth2";
+            this.aud = "auth.att.interop.pagopa.it/client-assertion";
+        }
     }
 
     public void setVerifySSL(boolean verifySSL) {
